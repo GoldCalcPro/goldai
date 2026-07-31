@@ -63,6 +63,8 @@ color:lime;
 <input id="sl" placeholder="Stop Loss">
 
 <input id="tp" placeholder="Take Profit">
+<input id="pipValue" placeholder="Value per Lot">
+
 <button onclick="calculate()">
 Calculate
 </button>
@@ -76,14 +78,15 @@ let risk = parseFloat(document.getElementById("risk").value);
 let entry = parseFloat(document.getElementById("entry").value);
 let sl = parseFloat(document.getElementById("sl").value);
 let tp = parseFloat(document.getElementById("tp").value);
-
+let pipValue = parseFloat(document.getElementById("pipValue").value);
 let riskAmount = (balance * risk) / 100;
 let slDistance = Math.abs(entry - sl);
 let tpDistance = Math.abs(tp - entry);
 let rr = (tpDistance / slDistance).toFixed(2);
-
+let lotSize = (riskAmount / (slDistance * pipValue)).toFixed(2);
 document.getElementById("result").innerHTML =
 "Risk = $" + riskAmount.toFixed(2) +
+"<br>Lot Size = " + lotSize +
 "<br>SL Distance = " + slDistance +
 "<br>TP Distance = " + tpDistance +
 "<br>Risk : Reward = 1 : " + rr;
