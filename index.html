@@ -69,17 +69,24 @@ Calculate
 
 <div id="result"></div>
 
-<script>
-
 function calculate(){
 
-let balance=document.getElementById("balance").value;
+let balance = parseFloat(document.getElementById("balance").value);
+let risk = parseFloat(document.getElementById("risk").value);
+let entry = parseFloat(document.getElementById("entry").value);
+let sl = parseFloat(document.getElementById("sl").value);
+let tp = parseFloat(document.getElementById("tp").value);
 
-let risk=document.getElementById("risk").value;
+let riskAmount = (balance * risk) / 100;
+let slDistance = Math.abs(entry - sl);
+let tpDistance = Math.abs(tp - entry);
+let rr = (tpDistance / slDistance).toFixed(2);
 
-let amount=(balance*risk)/100;
-
-document.getElementById("result").innerHTML="Risk = $"+amount;
+document.getElementById("result").innerHTML =
+"Risk = $" + riskAmount.toFixed(2) +
+"<br>SL Distance = " + slDistance +
+"<br>TP Distance = " + tpDistance +
+"<br>Risk : Reward = 1 : " + rr;
 
 }
 
