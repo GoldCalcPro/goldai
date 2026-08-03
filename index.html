@@ -83,12 +83,14 @@ let pipValue = parseFloat(document.getElementById("pipValue").value);
 let riskAmount = (balance * risk) / 100;
 let slDistance = Math.abs(entry - sl);
 let tpDistance = Math.abs(tp - entry);
+let tradeType = "";
+
 if (tp > entry) {
     tradeType = "🟢 BUY";
 } else if (tp < entry) {
     tradeType = "🔴 SELL";
 } else {
-    tradeType = "⚪ UNKNOWN";
+tradeType = "⚪ UNKNOWN";
 }
 let rr = (tpDistance / slDistance).toFixed(2);
 let lotSize = (riskAmount / (slDistance * pipValue)).toFixed(2);
@@ -105,7 +107,8 @@ let score = 0;
 let confidence = 0;
 let recommendation = "";
 let reason = "";
-let tradeType = "";
+
+
 // AI Signal Score
 if (rr >= 2) {
   score += 20;
@@ -152,12 +155,12 @@ if (score >= 80) {
 }
 document.getElementById("aiResult").innerHTML =
 "<h2>🤖 AI Analysis</h2>" +
-"<br>Trade Type = " + tradeType +
-"<br>AI Score = " + score + "/100" +
-"<br>Signal = " + signal +
-"<br>Confidence = " + confidence + "%" +
-"<br>Recommendation = " + recommendation +
-"<br>Reason = " + reason;
+"<br><b>Trade Type:</b> " + tradeType +
+"<br><b>AI Score:</b> " + score + "/100" +
+"<br><b>Signal:</b> " + signal +
+"<br><b>Confidence:</b> " + confidence + "%" +
+"<br><b>Recommendation:</b> " + recommendation +
+"<br><b>Reason:</b> " + reason;
 }
 </script>
 </body>
