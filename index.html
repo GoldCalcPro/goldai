@@ -120,18 +120,36 @@ if (risk <= 2) {
   score += 20;
 }
 if (score >= 80) {
-  signal = "🟢 STRONG TRADE";
+    signal = "🟢 STRONG TRADE";
 } else if (score >= 60) {
-  signal = "🟡 GOOD TRADE";
+    signal = "🟡 GOOD TRADE";
 } else if (score >= 40) {
-  signal = "🟠 RISKY";
+    signal = "🟠 RISKY";
 } else {
-  signal = "🔴 SKIP TRADE";
+    signal = "🔴 SKIP TRADE";
+}
+confidence = score;
+
+if (score >= 80) {
+    recommendation = "Entry sekarang";
+    reason = "Setup sangat kuat dengan risk-reward yang baik.";
+} else if (score >= 60) {
+    recommendation = "Boleh entry tetapi berhati-hati";
+    reason = "Setup masih baik tetapi perlukan disiplin.";
+} else if (score >= 40) {
+    recommendation = "Tunggu confirmation";
+    reason = "Signal belum cukup kuat.";
+} else {
+    recommendation = "Jangan entry";
+    reason = "Setup tidak memenuhi syarat.";
 }
 document.getElementById("aiResult").innerHTML =
 "<h2>🤖 AI Analysis</h2>" +
 "<br>AI Score = " + score + "/100" +
-"<br>Signal = " + signal;
+"<br>Signal = " + signal +
+"<br>Confidence = " + confidence + "%" +
+"<br>Recommendation = " + recommendation +
+"<br>Reason = " + reason;
 }
 </script>
 </body>
