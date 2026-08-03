@@ -94,9 +94,44 @@ document.getElementById("result").innerHTML =
 
 let signal = "";
 let score = "";
+// AI Signal Score
+
+if (rr >= 2) {
+  score += 20;
+}
+
+if (slDistance <= 20) {
+  score += 20;
+}
+
+if (tpDistance >= slDistance * 2) {
+  score += 20;
+}
+
+if (lotSize <= 1) {
+  score += 20;
+}
+
+if (risk <= 2) {
+  score += 20;
+}
+if (score >= 80) {
+  signal = "🟢 STRONG TRADE";
+} else if (score >= 60) {
+  signal = "🟡 GOOD TRADE";
+} else if (score >= 40) {
+  signal = "🟠 RISKY";
+} else {
+  signal = "🔴 SKIP TRADE";
+}
+document.getElementById("aiResult").innerHTML =
+"<h2>🤖 AI Analysis</h2>" +
+"<br>AI Score = " + score + "/100" +
+"<br>Signal = " + signal;
 }
 </script>
-
 </body>
-
 </html>
+
+
+
