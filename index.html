@@ -95,6 +95,7 @@ tradeType = "⚪ UNKNOWN";
 let rr = (tpDistance / slDistance).toFixed(2);
 let lotSize = (riskAmount / (slDistance * pipValue)).toFixed(2);
 let expectedProfit = (tpDistance * pipValue * lotSize).toFixed(2);
+
 let expectedLoss = (slDistance * pipValue * lotSize).toFixed(2);
 document.getElementById("result").innerHTML =
 "Risk = $" + riskAmount.toFixed(2) +
@@ -106,29 +107,22 @@ document.getElementById("result").innerHTML =
 "<br>🛑 Expected Loss = $" + expectedLoss;
 let signal = "";
 let score = 0;
-
 let confidence = 0;
 let recommendation = "";
 let reason = "";
-
-
 // AI Signal Score
 if (rr >= 2) {
   score += 20;
 }
-
 if (slDistance <= 20) {
   score += 20;
 }
-
 if (tpDistance >= slDistance * 2) {
   score += 20;
 }
-
 if (lotSize <= 1) {
   score += 20;
 }
-
 if (risk <= 2) {
   score += 20;
 }
@@ -143,18 +137,42 @@ if (score >= 80) {
 }
 confidence = score;
 
-if (score >= 80) {
-    recommendation = "Entry sekarang";
-    reason = "Setup sangat kuat dengan risk-reward yang baik.";
+let breakEvenWinRate = (100 / (parseFloat(rr) + 1)).toFixed(1);
+
+let positionQuality = "";
+
+if (score >= 90) {
+    positionQuality = "🏆 A+";
+} else if (score >= 80) {
+    positionQuality = "🥇 A";
 } else if (score >= 60) {
-    recommendation = "Boleh entry tetapi berhati-hati";
-    reason = "Setup masih baik tetapi perlukan disiplin.";
+    positionQuality = "🥈 B";
 } else if (score >= 40) {
-    recommendation = "Tunggu confirmation";
-    reason = "Signal belum cukup kuat.";
+    positionQuality = "🥉 C";
 } else {
-    recommendation = "Jangan entry";
-    reason = "Setup tidak memenuhi syarat.";
+    positionQuality = "❌ D";
+}
+
+let warning = "";
+
+if (risk > 3) {
+    warning = "⚠️ Risk terlalu tinggi!";
+} else {
+    warning = "✅ Risk selamat";
+}
+
+if (score >= 80) {
+recommendation = "Entry sekarang";
+reason = "Setup sangat kuat dengan risk-reward yang baik.";
+} else if (score >= 60) {
+recommendation = "Boleh entry tetapi berhati-hati";
+reason = "Setup masih baik tetapi perlukan disiplin.";
+} else if (score >= 40) {
+recommendation = "Tunggu confirmation";
+reason = "Signal belum cukup kuat.";
+} else {
+recommendation = "Jangan entry";
+reason = "Setup tidak memenuhi syarat.";
 }
 document.getElementById("aiResult").innerHTML =
 "<h2>🤖 AI Analysis</h2>" +
