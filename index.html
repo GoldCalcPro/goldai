@@ -94,13 +94,16 @@ tradeType = "⚪ UNKNOWN";
 }
 let rr = (tpDistance / slDistance).toFixed(2);
 let lotSize = (riskAmount / (slDistance * pipValue)).toFixed(2);
+let expectedProfit = (tpDistance * pipValue * lotSize).toFixed(2);
+let expectedLoss = (slDistance * pipValue * lotSize).toFixed(2);
 document.getElementById("result").innerHTML =
 "Risk = $" + riskAmount.toFixed(2) +
 "<br>Lot Size = " + lotSize +
 "<br>SL Distance = " + slDistance +
 "<br>TP Distance = " + tpDistance +
-"<br>Risk : Reward = 1 : " + rr;
-
+"<br>Risk : Reward = 1 : " + rr +
+"<br>💰 Expected Profit = $" + expectedProfit +
+"<br>🛑 Expected Loss = $" + expectedLoss;
 let signal = "";
 let score = 0;
 
